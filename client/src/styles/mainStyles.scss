@@ -1,0 +1,25 @@
+// variables
+$white: #f8f8ff;
+
+// resets
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: $white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+// styles
+
+.logo {
+  color: $white;
+  padding: 1rem;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
