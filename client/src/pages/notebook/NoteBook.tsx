@@ -1,14 +1,46 @@
 import { Box, ButtonGroup, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import { notebookPages } from './obj';
+import { obj } from './obj';
 import { Item } from '../../components/item/Item';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TypographyStyled } from './styles';
 import Task from './Task';
+import { notebookPagesTypes } from './types';
+import BottomFooter from '../../components/bottom/BottomFooter';
 const NoteBook = () => {
+  const [notebokPages, setNotebokPages] = useState<any>([]);
+  const [tasksDisplayed, setTasksDisplayed] = useState<any>([]);
+
+  // fech data and set task in to variable
+  useEffect(() => {
+    if (obj) {
+      // setup pages
+      setNotebokPages([...obj]);
+      // setup task display on screenCenter
+    }
+    if (notebokPages[0]) {
+      setTasksDisplayed([...notebokPages[0].tasks]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // when data feched set up tasks
+    if (notebokPages[0]) {
+      setTasksDisplayed([...notebokPages[0].tasks]);
+    }
+  }, [notebokPages]);
+
+
+  const buttonGroup = (idNumber: number) => {
+    setTasksDisplayed([...notebokPages[idNumber].tasks]);
+  };
+
+
+// FIXME: make async code to fech data + set obj[0].tasks to show tasks ASYNC METHOD
+// FIXME: make task compleated or not logic using object and loops
+
   return (
     <Box
       sx={{
@@ -37,10 +69,10 @@ const NoteBook = () => {
         noValidate
         autoComplete='off'
       >
-        {/* add buttons to notebook pages  */}
+        {/* button group to swich tasks pages  */}
         <ButtonGroup color='secondary' aria-label='medium secondary button group'>
-          {notebookPages.map((page) => (
-            <Button sx={{ mb: '2rem' }} key={page.name}>
+          {notebokPages.map((page: any, id: any) => (
+            <Button onClick={() => buttonGroup(id)} sx={{ mb: '2rem' }} key={page.name}>
               {page.name}
             </Button>
           ))}
@@ -49,15 +81,14 @@ const NoteBook = () => {
         <Typography variant='body1' sx={{ borderTop: '1px dashed black', pt: '.3rem', mb: '2rem' }}>
           ( Section )
         </Typography>
-        {/* input to enter value */}
+        {/* input to enter NEW task */}
         <TextField
           sx={{ width: '100%', maxWidth: '30rem' }}
           id='outlined-textarea'
           label='Enter Your Task'
-          placeholder='Group your notes with + button'
           multiline
         />
-        {/* add button */}
+        {/* add button bottom right */}
         <Box sx={{ position: 'fixed', right: '5vh', bottom: '5vh' }}>
           <Fab color='primary' aria-label='add'>
             <AddIcon />
@@ -81,17 +112,10 @@ const NoteBook = () => {
           </Typography>
 
           {/* display all tasks */}
-          {notebookPages[0].tasks.map((task, i) => {
-            console.log('task:', task);
+          {tasksDisplayed.map((task: any) => {
+            // console.log('task:', task.tasks)
             return (
               <Item key={task.id} sx={{ boxShadow: '4' }}>
-                {/* <TypographyStyled
-                  onClick={() => setTextWithLine(!textWithLine)}
-                  textWithLine={textWithLine}
-                  variant='button'
-                >
-                  {task.id}. {task.task}
-                </TypographyStyled> */}
                 <Task>
                   {task.id}. {task.task}
                 </Task>
@@ -102,21 +126,10 @@ const NoteBook = () => {
               </Item>
             );
           })}
-
-          {/* <Item sx={{ boxShadow: '4' }}>
-            <TypographyStyled
-              onClick={() => setTextWithLine(!textWithLine)}
-              textWithLine={textWithLine}
-              variant='button'
-            >
-              1. item 1
-            </TypographyStyled>
-            <IconButton aria-label='delete'>
-              <DeleteIcon />
-            </IconButton>
-          </Item> */}
         </Paper>
       </Box>
+      {/* bottom */}
+      <BottomFooter />
     </Box>
   );
 };

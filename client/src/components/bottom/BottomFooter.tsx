@@ -7,8 +7,16 @@ export default function BottomFooter() {
   return (
     <Bottom>
       <Typography variant='h5' component='footer'>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, et? Nihil, vero! Doloremque
-        ducimus neque quia recusandae modi hic autem.
+        Bottom
+        Bottom
+        Bottom
+        Bottom
+        Bottom
+        Bottom
+        Bottom
+        Bottom
+        Bottom
+        Bottom
       </Typography>
     </Bottom>
   );

@@ -8,14 +8,14 @@ type TaskProps = {
   };
 };
 
-const Task = ({ children }: TaskProps) => {
-  const [textWithLine, setTextWithLine] = useState(false);
+const Task = ({ children }: TaskProps): JSX.Element => {
+  const [line, setLine] = useState("line OFF");
 
   return (
     <TypographyStyled
-      onClick={() => setTextWithLine(!textWithLine)}
-      textWithLine={textWithLine}
-      variant='button'
+      onClick={() => setLine(line === "line ON" ?  "line OFF" : "line ON")}
+      line={line}
+      variant='h6'
     >
       {children}
     </TypographyStyled>

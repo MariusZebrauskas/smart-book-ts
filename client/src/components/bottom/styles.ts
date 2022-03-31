@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import BottomNavigation from '@mui/material/BottomNavigation';
 
-export const Bottom = styled(BottomNavigation)`
+
+export const Bottom = styled.section`
   margin-top: 15rem;
   display: 'flex';
   justify-content: 'center';
